@@ -1,0 +1,20 @@
+# red = 0
+---
+characters:
+  - name: Pierre
+    num: 0
+    color: red
+    speed: 0.5
+    status: 0
+
+  - name: Paul
+    num: 0
+    color: red
+    speed: 0.5
+    status: 1
+
+  - name: Jacques
+    num: 0
+    color: red
+    speed: 0.5
+    status: 1

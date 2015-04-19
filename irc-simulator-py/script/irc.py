@@ -1,23 +1,42 @@
 #!/usr/local/bin/python3.4
 
 import sys, re, time, random
+from threading import Thread
 
 from termcolor import colored
-from collections import defaultdict
 
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 from ConfigUI import Ui_MainWindow
 
+def run(dialog, characters):
+    for c,d in dialog:
+
+        print(colored(c, characters[c]['color']) + " says:")
+        time.sleep(1)
+
+        for info in d:
+            print(info, end="", flush=True)
+
+            time.sleep(random.uniform(0, characters[c]['speed']))
+
+        print('\n')
+
 class Config(QMainWindow, Ui_MainWindow):
-    def __init__(self, characters, dialog, parent = None):
+    def __init__(self, parent = None):
         super(Config, self).__init__(parent)
 
-        self.charactersModel = characters
-        self.dialog = dialog
-        self.selectedCharacter = "None"
+        fileInfo = QFileDialog. getOpenFileNames(self, 'Dialog Title', '~', '*.txt')
 
+        self.charactersModel = {}
+        self.dialog = []
+        #self.dialog =
+
+        if fileInfo:
+            self.parse(fileInfo[0][0])
+
+        self.selectedCharacter = "None"
         self.setupUi(self)
 
         # Set ListView
@@ -30,7 +49,7 @@ class Config(QMainWindow, Ui_MainWindow):
         self.CharactersListView.clicked.connect(self.on_characters_selected)
 
         # Set Color
-        self.colors = ['red', 'grey', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white']
+        self.colors = ['grey', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white']
 
         for color in self.colors:
             self.ColorsCombo.addItem(color)
@@ -70,27 +89,28 @@ class Config(QMainWindow, Ui_MainWindow):
         self.charactersModel[self.selectedCharacter]['speed'] = value
         self.Speed.setText("Speed: " + "{0:.2f}".format(self.charactersModel[self.selectedCharacter]['speed']))
 
-    def run(self):
-        for c,d in self.dialog:
-
-            print(colored(c, self.charactersModel[c]['color']) + " says:")
-            time.sleep(1)
-
-            for info in d:
-                print(info, end="", flush=True)
-
-                time.sleep(random.uniform(0, self.charactersModel[c]['speed']))
-
-            print('\n')
-
-
-
     def on_button_pressed(self):
-        self.run()
+        p = Thread(target=run, args = (self.dialog, self.charactersModel))
+        p.start()
+        #p.join()
 
     def main(self):
         self.show()
 
+    def parse(self, path):
+        with open(path, "r", encoding="utf-8") as f:
+            data = f.read()
+
+            pattern = re.compile(r'^\[(.+)\]\s*(\w.*)', re.MULTILINE)
+
+            self.dialog = re.findall(pattern, data)
+
+            #print(dialog)
+            for c,d in self.dialog:
+                if c in self.charactersModel.keys():
+                    self.charactersModel[c]['num'] += 1
+                else:
+                    self.charactersModel[c] = {'num': 1, 'color': 'red', 'speed': 0.5}
 
 def display(dialog):
     for c,d in dialog:
@@ -105,33 +125,13 @@ def display(dialog):
         print('\n');
         app.quit()
 
+
 def main():
-    if (len(sys.argv) != 2):
-        print("USE: {} <dialog.txt>".format(sys.argv[0]))
-
-    else:
-        with open(sys.argv[1], "r", encoding="utf-8") as f:
-            data = f.read()
-
-            pattern = re.compile(r'^\[(.+)\]\s*(\w.*)', re.MULTILINE)
-
-            dialog = re.findall(pattern, data)
-
-            #print(dialog)
-
-            characters = {}
-            for c,d in dialog:
-                if c in characters.keys():
-                    characters[c]['num'] += 1
-                else:
-                    characters[c] = {'num': 1, 'color': 'red', 'speed': 0.5}
-
-
-            #display(dialog)
-            app = QApplication(sys.argv)
-            config = Config(characters, dialog)
-            config.main()
-            app.exec_()
+    #display(dialog)
+    app = QApplication(sys.argv)
+    config = Config()
+    config.main()
+    app.exec_()
 
 if __name__ == "__main__":
     main()
