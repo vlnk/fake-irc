@@ -28,7 +28,6 @@ void IRC::setCharacters(const YAML::Node& node) {
     Character ch;
 
     ch.name = node[i]["name"].as<std::string>();
-    ch.numOfDialog = node[i]["num"].as<int>();
 
     ch.color = Color::Painter::selectColor(node[i]["color"].as<std::string>());
 

@@ -25,7 +25,6 @@ private:
 
   struct Character {
     std::string name;
-    int numOfDialog;
     Color::Painter * color;
     double speed;
     int priority;
@@ -68,7 +67,6 @@ public:
 
     for(Character ch : irc._characters) {
       os << "name: " << ch.name << "\n";
-      os << "dialogs: " << ch.numOfDialog << "\n";
       os << "color: " << *(ch.color) << ch.color->getName() << def << "\n";
       os << "speed: " << ch.speed << "\n";
     }
