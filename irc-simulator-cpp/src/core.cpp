@@ -20,7 +20,7 @@ int main(int argc, char * argv[]) {
     if (opt.compare("check") == 0) {
       IRC * irc = new IRC();
 
-      std::cout << "Welcome to this wonderful irc-simulator !" << std::endl;
+      std::cout << "Welcome in this wonderful irc-simulator !" << std::endl;
       std::cout << *irc << std::endl;
       std::cout << "All configuration files are parsed successfully." << std::endl;
 
@@ -28,6 +28,7 @@ int main(int argc, char * argv[]) {
     }
     else if (opt.compare("start") == 0) {
       IRC * irc = new IRC();
+      irc->run();
       delete irc;
     }
     else {

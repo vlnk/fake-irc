@@ -9,6 +9,11 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
+#include <time.h>
+#include <chrono>
+#include <sstream>
+#include <random>
+#include <thread>
 
 #include "yaml-cpp/yaml.h"
 
@@ -41,8 +46,12 @@ private:
       txt(t) {}
   };
 
+  std::string _start_msg;
+  std::string _end_msg;
+
   std::vector<Character> _characters;
   std::vector<Dialog> _dialogs;
+  struct tm _starting_date;
 
 public:
   IRC();
@@ -69,11 +78,22 @@ public:
       os << d.txt << "\n";
     }
 
+    os << "year: " << irc._starting_date.tm_year << "\n";
+    os << "month: " << irc._starting_date.tm_mon << "\n";
+    os << "day: " << irc._starting_date.tm_wday << "\n";
+    os << "hour: " << irc._starting_date.tm_hour << "\n";
+    os << "min: " << irc._starting_date.tm_min << "\n";
+    os << "sec: " << irc._starting_date.tm_sec << "\n";
+
     return os;
   }
 
 private:
   void setCharacters(const YAML::Node&);
+  void setDate(const YAML::Node&);
+
+  const std::string getFormatedDate() const;
+
   void parseDialog(const std::string&);
   IRC::Dialog parseCharacter(const std::string&);
 

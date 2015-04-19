@@ -3,8 +3,13 @@
 IRC::IRC(std::string config_yaml, std::string dialog_txt) {
   try {
     YAML::Node config = YAML::LoadFile(config_yaml);
+
+    _start_msg = config["start"].as<std::string>();
+    _end_msg = config["end"].as<std::string>();
+
     setCharacters(config["characters"]);
     parseDialog(dialog_txt);
+    setDate(config["date"]);
   }
   catch(std::invalid_argument& ia) {
     std::cerr << "exception caught: " << ia.what() << "\n";
@@ -116,5 +121,94 @@ IRC::Dialog IRC::parseCharacter(const std::string& line) {
 }
 
 void IRC::run() {
-  
+  Color::Painter def(Color::FG_DEFAULT);
+  typedef std::chrono::duration<int,std::milli> milli_t;
+  std::default_random_engine gen;
+
+  std::cout << _start_msg << std::endl;
+
+  for(Dialog dialog : _dialogs) {
+    std::cout << getFormatedDate();
+    std::cout << " " << *(dialog.ch.color) << dialog.ch.name << def << " says : \n";
+
+    std::this_thread::sleep_for (std::chrono::seconds(1));
+
+    for(char& c : dialog.txt) {
+
+      std::uniform_real_distribution<double> dist(0,dialog.ch.speed);
+      std::chrono::milliseconds ms(static_cast<int>(dist(gen)*1000));
+
+      //std::chrono::milliseconds ms(dist(gen));
+
+      std::this_thread::sleep_for (ms);
+
+      std::cout << c;
+      std::cout.flush();
+    }
+
+    std::cout << std::endl;
+    std::cout.flush();
+  }
+
+  std::cout << _end_msg << std::endl;
+}
+
+void IRC::setDate(const YAML::Node& node) {
+  time_t local_time = time(NULL);
+  struct tm * local_tm = localtime(&local_time);
+
+  if (node["year"].as<std::string>().compare("local") == 0) {
+    _starting_date.tm_year = local_tm->tm_year;
+  }
+  else {
+    _starting_date.tm_year = node["year"].as<int>();
+  }
+
+  if (node["month"].as<std::string>().compare("local") == 0) {
+    _starting_date.tm_mon = local_tm->tm_mon;
+  }
+  else {
+    _starting_date.tm_mon = node["month"].as<int>();
+  }
+
+  if (node["day"].as<std::string>().compare("local") == 0) {
+    _starting_date.tm_wday = local_tm->tm_wday;
+  }
+  else {
+    _starting_date.tm_wday = node["day"].as<int>();
+  }
+
+  if (node["hour"].as<std::string>().compare("local") == 0) {
+    _starting_date.tm_hour = local_tm->tm_hour;
+  }
+  else {
+    _starting_date.tm_hour = node["hour"].as<int>();
+  }
+
+  if (node["min"].as<std::string>().compare("local") == 0) {
+    _starting_date.tm_min = local_tm->tm_min;
+  }
+  else {
+    _starting_date.tm_min = node["min"].as<int>();
+  }
+
+  if (node["sec"].as<std::string>().compare("local") == 0) {
+    _starting_date.tm_sec = local_tm->tm_sec;
+  }
+  else {
+    _starting_date.tm_sec = node["sec"].as<int>();
+  }
+
+}
+
+const std::string IRC::getFormatedDate() const {
+  std::stringstream ss;
+
+  ss << '[';
+  ss << _starting_date.tm_hour << ":";
+  ss << _starting_date.tm_min << ":";
+  ss << _starting_date.tm_sec;
+  ss << ']';
+
+  return ss.str();
 }

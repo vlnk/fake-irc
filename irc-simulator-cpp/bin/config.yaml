@@ -1,5 +1,7 @@
 # red = 0
 ---
+start: Welcome to this wonderful irc-simulator !
+end: irc-simulator is deconnected.
 characters:
   - name: Pierre
     num: 0
@@ -9,12 +11,19 @@ characters:
 
   - name: Paul
     num: 0
-    color: red
+    color: green
     speed: 0.5
     status: 1
 
   - name: Jacques
     num: 0
-    color: red
+    color: blue
     speed: 0.5
     status: 1
+date:
+  year: 2015
+  month: 2 #March
+  day: 0 #Sunday
+  hour: local
+  min: local
+  sec: local
