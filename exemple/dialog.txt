@@ -1,11 +1,14 @@
-[Pierre]
+# (12/05/2015 1:34:14) [Pierre]
 Salut !
 
-[Paul]
-Coucou !
+# (15/05/2015 2:34:14) [Paul]
+Coucou {100} !
 
-[Jacques]
+# {100} (16/05/2015 4:34:14) [Paul]
+aùesdjvm cxDARTHDJSBVAFGZDVCSBCVdghj
+
+# (14/05/2015 3:34:14) [Jacques]
 awfsgdhfjgkmnbdsfasdgfhgfmndbsfacdbjuytjm.
 
-[Paul]
+# {100} (16/05/2015 4:34:14) [Paul]
 aùesdjvm cxDARTHDJSBVAFGZDVCSBCVdghj

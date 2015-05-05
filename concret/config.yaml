@@ -1,23 +1,19 @@
 # red = 0
 ---
-start: Welcome in this wonderful irc-simulator !
+start: ...
 
-end: irc-simulator is deconnected.
+end: Jade est déconnectée.
+# model: (%y/%d %h:%m:%s) %p :
 
 characters:
-  - name: Pierre
+  - name: Will
     color: red #red, blue, green, white
     speed: 0.5
     status: 0 #0 < speed < 1
 
-  - name: Paul
+  - name: Jade
     color: green
-    speed: 0.5
-    status: 1
-
-  - name: Jacques
-    color: blue
-    speed: 0.5
+    speed: 0.2
     status: 1
 
 date:

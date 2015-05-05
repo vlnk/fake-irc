@@ -1,8 +1,17 @@
 # red = 0
 ---
-start: Welcome in this wonderful irc-simulator !
+start: "Welcome in this wonderful irc-simulator !"
 
-end: irc-simulator is deconnected.
+end: "irc-simulator is deconnected."
+end_wait: 10000
+
+# MODEL FORMATING = '%' + parameters
+# parameters :
+# P -> the character name with color formating
+# DATE PARAMETERS -> see all parameters on cplusplus website
+# http://www.cplusplus.com/reference/iomanip/put_time/
+
+model: "(%d/%m/%G - %H:%M:%S) %P dit :"
 
 characters:
   - name: Pierre
@@ -20,10 +29,15 @@ characters:
     speed: 0.5
     status: 1
 
+# DATE OPTIONS (TODO):
+# 'local' -> formated with dialog.txt date node
+# 'automatic' -> formated with previous date and end waiting time of previous dialog
+# for each date you can put global time as exemple
+
 date:
-  year: 2015
-  month: 2 #March
-  day: 0 #Sunday
+  year: 2048
+  month: local
+  day: local
   hour: local
   min: local
-  sec: local
+  sec: automatic

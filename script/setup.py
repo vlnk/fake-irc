@@ -7,7 +7,7 @@ Usage:
 
 from setuptools import setup
 
-APP = ['script/irc.py']
+APP = ['irc.py']
 DATA_FILES = []
 OPTIONS = {'argv_emulation': True}
 

@@ -3,7 +3,8 @@
 
 #include <ostream>
 namespace Color {
-  enum Code {
+  enum Code
+  {
     FG_RED      = 31,
     FG_GREEN    = 32,
     FG_BLUE     = 34,
@@ -24,30 +25,36 @@ namespace Color {
       _palette(palette),
       _name(name) {}
 
-    Painter(Code palette) : Painter(palette, "unknow") {}
+    Painter(Code palette) : Painter( palette, "unknow" ) {}
 
     const std::string& getName() const { return _name; }
 
-    static Painter* selectColor(std::string colorName = "default") {
+    static Painter* selectColor ( std::string colorName = "default" )
+    {
       Painter * painter;
 
-      if (colorName.compare("red") == 0) {
+      if (colorName.compare("red") == 0)
+      {
         painter = new Painter(FG_RED, colorName);
       }
-      else if (colorName.compare("green") == 0) {
+      else if (colorName.compare("green") == 0)
+      {
         painter = new Painter(FG_GREEN, colorName);
       }
-      else if (colorName.compare("blue") == 0) {
+      else if (colorName.compare("blue") == 0)
+      {
         painter = new Painter(FG_BLUE, colorName);
       }
-      else {
+      else
+      {
         painter = new Painter(FG_DEFAULT, "default");
       }
 
       return painter;
     }
 
-    friend std::ostream& operator << (std::ostream& os, const Painter& p) {
+    friend std::ostream& operator << ( std::ostream& os, const Painter& p )
+    {
       return os << "\033[" << p._palette << "m";
     }
   };

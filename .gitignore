@@ -1,3 +1,5 @@
 irc-simulator-cpp/CMakeFiles/*
-irc-simulator-cpp/bin/*
-__pycache__/*
+build/*
+library/*
+include/*
+install.sh

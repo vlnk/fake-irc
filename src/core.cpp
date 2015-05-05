@@ -1,7 +1,8 @@
 #include "IRC.hpp"
 #include <iostream>
 
-void help(std::string prog_name) {
+void help(std::string prog_name)
+{
   std::cout << "USAGE: " << prog_name << " <OPTION>" << std::endl;
   std::cout << "DISPOSABLE OPTIONS:" << std::endl;
   std::cout << "\t start" << "\t Start the configured irc conversation" << std::endl;
@@ -10,14 +11,18 @@ void help(std::string prog_name) {
   std::cout << "for other helps see documentation" << std::endl;
 }
 
-int main(int argc, char * argv[]) {
-  if (argc != 2) {
+int main(int argc, char * argv[])
+{
+  if (argc != 2)
+  {
     help(argv[0]);
   }
-  else {
+  else
+  {
     std::string opt(argv[1]);
 
-    if (opt.compare("check") == 0) {
+    if ( opt.compare("check") == 0 )
+    {
       IRC * irc = new IRC();
 
       std::cout << "Welcome in this wonderful irc-simulator !" << std::endl;
@@ -26,12 +31,17 @@ int main(int argc, char * argv[]) {
 
       delete irc;
     }
-    else if (opt.compare("start") == 0) {
+    else if (opt.compare("start") == 0)
+    {
       IRC * irc = new IRC();
+
+      std::cout << std::string( 100, '\n' );
+
       irc->run();
       delete irc;
     }
-    else {
+    else
+    {
       help(argv[0]);
     }
   }
