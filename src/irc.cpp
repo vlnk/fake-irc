@@ -1,4 +1,4 @@
-#include "irc.hpp"
+#include "IRC.hpp"
 
 IRC::IRC(std::string config_yaml, std::string dialog_txt) {
   try {

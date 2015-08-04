@@ -1,0 +1,3 @@
+// the configured options and settings
+#define FAKE_IRC_VERSION_MAJOR @FAKE_IRC_VERSION_MAJOR@
+#define FAKE_IRC_VERSION_MINOR @FAKE_IRC_VERSION_MINOR@

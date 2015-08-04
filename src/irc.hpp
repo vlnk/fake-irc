@@ -17,9 +17,9 @@
 #include <thread>
 #include <cstddef>
 
-#include "yaml-cpp/yaml.h"
+#include <yaml-cpp/yaml.h>
 
-#include "color.hpp"
+#include "Color.hpp"
 
 class IRC {
 private:
@@ -76,7 +76,6 @@ public:
   static void isCharacterEqual(const Character&);
 
   void run();
-
   friend std::ostream& operator << (std::ostream& os, const IRC& irc) {
     Color::Painter def(Color::FG_DEFAULT);
 
