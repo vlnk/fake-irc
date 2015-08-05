@@ -36,7 +36,7 @@ set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11" )
 
 ############################################################
 #### FIND YAML-CPP INCLUDES
-set ( YAMLCPP_ROOT ${CMAKE_CURRENT_BINARY_DIR}/external/yaml-cpp )
+set ( YAMLCPP_ROOT ${CMAKE_CURRENT_BINARY_DIR}/../external/yaml-cpp )
 set ( YAMLCPP_INCLUDE_DIRS ${YAMLCPP_ROOT}/src/yaml-cpp/include )
 find_library(YAMLCPP_LIBRARY
   libyaml-cpp.a
